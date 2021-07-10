@@ -30,7 +30,7 @@ public class UsrArticleWriteServlet extends HttpServlet {
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/usr/article/write.jsp");
 		requestDispatcher.forward(request, response);
 	}
-;
+
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {	
