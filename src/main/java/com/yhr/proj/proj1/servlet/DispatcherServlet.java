@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.yhr.mysqliutil.MysqlUtil;
 import com.yhr.mysqliutil.SecSql;
+import com.yhr.proj.proj1.http.Rq;
 
 @WebServlet("/usr/*")
 public class DispatcherServlet extends HttpServlet {
@@ -25,34 +26,22 @@ public class DispatcherServlet extends HttpServlet {
 
 		// HTML이 UTF-8 형식이라는 것을 브라우저에게 알린다.
 		resp.setContentType("text/html; charset=UTF-8");
-
-		String requestUri = req.getRequestURI();
-		String[] requestUriBits = requestUri.split("/");
-
-		int minBitsCount = 5;
-
-		if (requestUriBits.length < minBitsCount) {
-			resp.getWriter().append("올바른 요청이 아닙니다.");
+				
+		Rq rq = new Rq(req, resp);
+		
+		if( rq.isInvalid()) {
+			rq.print("올바른 요청이 아닙니다.");
 			return;
 		}
-		
-		int controllerTypeNameIndex = 2;
-		int controllerNameIndex = 3;
-		int actionMethodNameIndex = 4;
-		
-		String controllerTypeName = requestUriBits[controllerTypeNameIndex];
-		String controllerName = requestUriBits[controllerNameIndex];
-		String actionMethodName = requestUriBits[actionMethodNameIndex];
 
-		resp.getWriter().append("controllerTypeName : " + controllerTypeName);
-		resp.getWriter().append("<br>");
-		resp.getWriter().append("controllerName : " + controllerName);
-		resp.getWriter().append("<br>");
-		resp.getWriter().append("actionMethodName : " + actionMethodName);
+		rq.println("controllerTypeName : " + rq.getControllerTypeName());
+		rq.println("<br>");
+		rq.println("controllerName : " + rq.getControllerName());
+		rq.println("<br>");
+		rq.println("actionMethodName : " + rq.getActionMethodName());
 		
 		
 		MysqlUtil.setDBInfo("localhost", "sky", "blue", "jsp_community");
-
 		MysqlUtil.setDevMode(true);
 
 		MysqlUtil.closeConnection();
