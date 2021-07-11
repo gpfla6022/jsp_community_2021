@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/usr/article/write")
-public class UsrArticleWriteServlet extends HttpServlet {
+@WebServlet("/usr/article/doWrite")
+public class UsrArticleDoWriteServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {	
@@ -24,9 +24,9 @@ public class UsrArticleWriteServlet extends HttpServlet {
 		// HTML이 UTF-8 형식이라는 것을 브라우저에게 알린다.  
 		response.setContentType("text/html; charset=UTF-8");
 		
+		String title = request.getParameter("title");
+		String body = request.getParameter("body");
 		
-		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/usr/article/write.jsp");
-		requestDispatcher.forward(request, response);
 	}
 
 	
@@ -36,3 +36,4 @@ public class UsrArticleWriteServlet extends HttpServlet {
 	}
 
 }
+        
