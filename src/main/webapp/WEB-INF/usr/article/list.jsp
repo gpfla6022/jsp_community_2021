@@ -34,7 +34,7 @@ List<Article> articles = (List<Article>)request.getAttribute("articles");
 	<section class="section section-article-write px-4">
 		<div class="container mx-auto">
 
-			<div class="navbar mb-2 shadow-lg bg-neutral text-neutral-content rounded-box">
+			<div class="navbar mb-2 shadow-lg bg-neutral text-neutral-content rounded-box my-4">
 				<div class="flex-none">
 					<button class="btn btn-square btn-ghost" onclick="history.back();">
 						<svg xmlns="http://www.w3.org/2000/svg" fill="none"
