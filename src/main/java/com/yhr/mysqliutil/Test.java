@@ -30,7 +30,7 @@ public class Test {
 	}
 
 	private static void mysqlUtilJacksonTest() {
-		MysqlUtil.setDBInfo("localhost", "joy", "ful", "mysqlutil");
+		MysqlUtil.setDBInfo("localhost", "sky", "blue", "jsp_community");
 
 		MysqlUtil.setDevMode(true);
 

@@ -9,6 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.yhr.mysqliutil.MysqlUtil;
+import com.yhr.mysqliutil.SecSql;
+
 @WebServlet("/usr/article/doWrite")
 public class UsrArticleDoWriteServlet extends HttpServlet {
 
@@ -27,6 +30,21 @@ public class UsrArticleDoWriteServlet extends HttpServlet {
 		String title = request.getParameter("title");
 		String body = request.getParameter("body");
 		
+		MysqlUtil.setDBInfo("localhost", "sky", "blue", "jsp_community");
+		
+		MysqlUtil.setDevMode(true);
+		
+		SecSql sql = new SecSql();
+		sql.append("INSERT INTO article");
+		sql.append("SET regDate = NOW()");
+		sql.append(", updateDate = NOW()");
+		sql.append(", title = ?", title);
+		sql.append(", body = ?", body);
+		int id = MysqlUtil.insert(sql);
+		
+		response.getWriter().append(id + "번 게시물이 작성되었습니다.");
+		
+		MysqlUtil.closeConnection();
 	}
 
 	
