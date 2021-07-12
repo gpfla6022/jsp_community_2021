@@ -19,7 +19,11 @@ public class UsrArticleController extends Controller{
 
 
 	private void actionDoWrite(Rq rq) {
+		String title = rq.getParam("title", "");
+		String body = rq.getParam("body", "");
 		
+		rq.printf("title : %s<br>", title);
+		rq.printf("body : %s<br>", body);
 	}
 
 
