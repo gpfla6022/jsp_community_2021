@@ -26,3 +26,56 @@
 	href="${pageContext.request.contextPath}/resource/common.css" />
 </head>
 <body>
+<header class="top-bar h-14">
+		<div class="h-full container mx-auto flex">
+			<a href="/" class="top-bar__logo flex items-center px-4">
+				<span>
+					<i class="fas fa-globe"></i>
+				</span>
+				&nbsp;
+				<span> JSP COMMUNITY </span>
+			</a>
+
+			<div class="flex-grow"></div>
+
+			<nav class="top-bar__menu-box-1">
+				<ul class="flex h-full">
+					<li>
+						<a href="#" class="h-full flex items-center px-4 hover:underline">
+							<span>
+								<i class="fas fa-home"></i>
+							</span>
+							&nbsp;
+							<span>HOME</span>
+						</a>
+					</li>
+					<li>
+						<a href="#" class="h-full flex items-center px-4 hover:underline">
+							<span>
+								<i class="far fa-clipboard"></i>
+							</span>
+							&nbsp;
+							<span>BOARD</span>
+						</a>
+					</li>
+					<li>
+						<a href="#" class="h-full flex items-center px-4 hover:underline">
+							<span>
+								<i class="fas fa-sign-in-alt"></i>
+							</span>
+							&nbsp;
+							<span>LOGIN</span>
+						</a>
+					</li>
+					<li>
+						<a href="#" class="h-full flex items-center px-4 hover:underline">
+							<span>
+								<i class="fas fa-user-plus"></i>
+							</span>
+							<span>JOIN</span>
+						</a>
+					</li>
+				</ul>
+			</nav>
+		</div>
+	</header>
