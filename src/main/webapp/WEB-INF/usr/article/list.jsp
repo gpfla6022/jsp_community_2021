@@ -24,7 +24,7 @@
 				<span class="text-lg font-bold"> 게시물 리스트 </span>
 			</div>
 		</div>
-		<div class="px-4 py-4">
+		<div>
 			<c:forEach items="${articles}" var="article">
 				<c:set var="detailUri" value="../article/detail?id=${article.id}" />
 				<a href="${detailUri}">
@@ -44,7 +44,6 @@
 		</div>
 		<hr />
 		</c:forEach>
-	</div>
 	</div>
 </section>
 <%@ include file="../part/footer.jspf"%>

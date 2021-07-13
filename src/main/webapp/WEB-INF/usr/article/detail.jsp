@@ -44,7 +44,7 @@
 						<span><i class="fas fa-edit"></i></span>
 						<span>수정</span>
 						</a>
-						<a onclick="if(!confirm('정말로 삭제 하시겠습니까?')) return false;" href = "../article/DoDelete?id=${article.id}" class="btn btn-ghost">
+						<a onclick="if(!confirm('정말로 삭제 하시겠습니까?')) return false;" href = "../article/doDelete?id=${article.id}" class="btn btn-ghost">
 						<span><i class="fas fa-trash-alt"></i></span>
 						<span>삭제</span>
 						</a>
