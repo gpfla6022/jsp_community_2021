@@ -2,6 +2,7 @@ package com.yhr.proj.proj1.service;
 
 import java.util.List;
 
+import com.yhr.proj.proj1.container.Container;
 import com.yhr.proj.proj1.dto.Article;
 import com.yhr.proj.proj1.dto.ResultData;
 import com.yhr.proj.proj1.repository.ArticleRepository;
@@ -9,9 +10,11 @@ import com.yhr.proj.proj1.util.Ut;
 
 public class ArticleService {
 	private ArticleRepository articleRepository;
-
+	
 	public ArticleService() {
-		articleRepository = new ArticleRepository();
+		
+		articleRepository = Container.getArticleRepository();
+		
 	}
 
 	public ResultData write(String title, String body) {

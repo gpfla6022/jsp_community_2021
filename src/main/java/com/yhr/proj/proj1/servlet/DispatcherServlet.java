@@ -11,9 +11,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.yhr.mysqliutil.MysqlUtil;
 import com.yhr.mysqliutil.SecSql;
+import com.yhr.proj.proj1.container.Container;
 import com.yhr.proj.proj1.http.Rq;
 import com.yhr.proj.proj1.http.controller.Controller;
 import com.yhr.proj.proj1.http.controller.UsrArticleController;
+import com.yhr.proj.proj1.http.controller.UsrMemberController;
 
 @WebServlet("/usr/*")
 public class DispatcherServlet extends HttpServlet {
@@ -33,15 +35,16 @@ public class DispatcherServlet extends HttpServlet {
 		case "usr":
 			switch (rq.getControllerName()) {
 			case "article":
-				controller = new UsrArticleController();
+				controller = Container.getUsrArticleController();
+				break;
+			case "member":
+				controller = Container.getUsrMemberController();
+				break;
 			}
 			break;
 		}
 
 		if (controller != null) {
-
-			MysqlUtil.setDBInfo("localhost", "sky", "blue", "jsp_community");
-			MysqlUtil.setDevMode(true);
 
 			controller.performAction(rq);
 			
