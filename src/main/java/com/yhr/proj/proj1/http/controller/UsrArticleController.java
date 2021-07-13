@@ -1,5 +1,8 @@
 package com.yhr.proj.proj1.http.controller;
 
+import java.util.List;
+
+import com.yhr.proj.proj1.dto.Article;
 import com.yhr.proj.proj1.dto.ResultData;
 import com.yhr.proj.proj1.http.Rq;
 import com.yhr.proj.proj1.http.service.ArticleService;
@@ -14,6 +17,9 @@ public class UsrArticleController extends Controller{
 	@Override
 	public void performAction(Rq rq) {
 		switch(rq.getActionMethodName()) {
+		case "list":
+			actionShowList(rq);
+			break;
 		case "write":
 			actionShowWrite(rq);
 			break;
@@ -24,6 +30,15 @@ public class UsrArticleController extends Controller{
 		
 	}
 
+
+	private void actionShowList(Rq rq) {
+		List<Article> articles = articleService.getForPrintArticles();
+		
+		// jsp안에서 "articles"라는 이름으로 articles변수에 접근 할 수 있다.
+		rq.setAttr("articles", articles);
+		
+		rq.jsp("usr/article/list");
+	}
 
 	private void actionDoWrite(Rq rq) {
 		String title = rq.getParam("title", "");

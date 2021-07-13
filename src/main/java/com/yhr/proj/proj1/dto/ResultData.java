@@ -5,7 +5,9 @@ import java.util.Map;
 import com.yhr.proj.proj1.util.Ut;
 
 import lombok.Getter;
+import lombok.ToString;
 
+@ToString
 public class ResultData {
 	@Getter
 	private String msg;

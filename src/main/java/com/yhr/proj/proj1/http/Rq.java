@@ -2,21 +2,23 @@ package com.yhr.proj.proj1.http;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.yhr.proj.proj1.dto.Article;
 import com.yhr.proj.proj1.util.Ut;
 
 import lombok.Getter;
+import lombok.ToString;
 
+@ToString
 public class Rq {
 
-	@Getter
 	private HttpServletRequest req;
-	@Getter
 	private HttpServletResponse resp;
 	@Getter
 	private boolean isInvalid = false;
@@ -109,6 +111,16 @@ public class Rq {
 		printf("alert('%s');\n", msg);
 		printf("history.back();");
 		println("</script>");
+		
+	}
+
+	public void println(Object obj) {
+		println(obj.toString());
+		
+	}
+
+	public void setAttr(String attrName, Object attrValue) {
+		req.setAttribute(attrName, attrValue);
 		
 	}
 
