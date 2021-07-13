@@ -1,4 +1,4 @@
-package com.yhr.proj.proj1.http.repository;
+package com.yhr.proj.proj1.repository;
 
 import java.util.List;
 

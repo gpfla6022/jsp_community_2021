@@ -1,10 +1,10 @@
-package com.yhr.proj.proj1.http.service;
+package com.yhr.proj.proj1.service;
 
 import java.util.List;
 
 import com.yhr.proj.proj1.dto.Article;
 import com.yhr.proj.proj1.dto.ResultData;
-import com.yhr.proj.proj1.http.repository.ArticleRepository;
+import com.yhr.proj.proj1.repository.ArticleRepository;
 import com.yhr.proj.proj1.util.Ut;
 
 public class ArticleService {

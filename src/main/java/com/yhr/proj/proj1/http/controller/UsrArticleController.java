@@ -5,7 +5,7 @@ import java.util.List;
 import com.yhr.proj.proj1.dto.Article;
 import com.yhr.proj.proj1.dto.ResultData;
 import com.yhr.proj.proj1.http.Rq;
-import com.yhr.proj.proj1.http.service.ArticleService;
+import com.yhr.proj.proj1.service.ArticleService;
 
 public class UsrArticleController extends Controller{
 	private ArticleService articleService;
@@ -26,6 +26,9 @@ public class UsrArticleController extends Controller{
 		case "doWrite":
 			actionDoWrite(rq);
 			break;
+		default:
+			rq.println("존재하지 않는 페이지 입니다.");
+			break;
 		}
 		
 	}
@@ -43,6 +46,7 @@ public class UsrArticleController extends Controller{
 	private void actionDoWrite(Rq rq) {
 		String title = rq.getParam("title", "");
 		String body = rq.getParam("body", "");
+		String redirectUri = rq.getParam("redirectUri", "../article/list");
 		
 		
 		if(title.length() == 0) {
@@ -56,8 +60,11 @@ public class UsrArticleController extends Controller{
 		}
 		
 		ResultData writeRd = articleService.write(title, body);
+		int id = (int)writeRd.getBody().get("id");
 		
-		rq.printf(writeRd.getMsg());
+		redirectUri = redirectUri.replace("[NEW_ID]", id + "");
+		
+		rq.replace(writeRd.getMsg(), redirectUri);
 	}
 
 
