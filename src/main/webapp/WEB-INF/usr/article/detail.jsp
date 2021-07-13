@@ -3,9 +3,9 @@
 <%@ page import="java.util.List"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-<c:set var="pageTitle" value="게시물 리스트" />
+<c:set var="pageTitle" value="게시물 상세페이지" />
 <%@ include file="../part/header.jspf"%>
-<section class="section section-article-list px-4">
+<section class="section section-article-detail px-4">
 	<div class="container mx-auto">
 
 		<div
@@ -21,30 +21,36 @@
 				</button>
 			</div>
 			<div class="flex-1 px-2 mx-2">
-				<span class="text-lg font-bold"> 게시물 리스트 </span>
+				<span class="text-lg font-bold"> 게시물 상세페이지 </span>
 			</div>
 		</div>
 		<div class="px-4 py-4">
-			<c:forEach items="${articles}" var="article">
-				<c:set var="detailUri" value="../article/detail?id=${article.id}" />
-				<a href="${detailUri}">
-					<div>
+				<div>
 						번호 : ${article.id}
+						<br>
+						제목 : ${article.title}
+						<br>
+						작성자 : ${article.memberId}
 						<br>
 						작성 : ${article.regDate}
 						<br>
 						갱신일 : ${article.updateDate}
 						<br>
-						제목 : ${article.title}
-						<br>
 						내용 : ${article.body}
 						<br>
+				</div>
+				<div class="btns mt-3">
+						<a href = "../article/modify?id=${article.id}" class="btn btn-ghost">
+						<span><i class="fas fa-edit"></i></span>
+						<span>수정</span>
+						</a>
+						<a onclick="if(!confirm('정말로 삭제 하시겠습니까?')) return false;" href = "../article/DoDelete?id=${article.id}" class="btn btn-ghost">
+						<span><i class="fas fa-trash-alt"></i></span>
+						<span>삭제</span>
+						</a>
 					</div>
-				</a>
+				<hr />
 		</div>
-		<hr />
-		</c:forEach>
-	</div>
 	</div>
 </section>
 <%@ include file="../part/footer.jspf"%>

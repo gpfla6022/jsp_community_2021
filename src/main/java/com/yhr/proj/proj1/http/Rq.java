@@ -89,21 +89,36 @@ public class Rq {
 		} catch (ServletException | IOException e) {
 			e.printStackTrace();
 		}
-		
+
 	}
 
 	public String getParam(String paramName, String defaultValue) {
 		String paramValue = req.getParameter(paramName);
-		
-		if( paramValue == null ) {
-			return defaultValue ;
+
+		if (paramValue == null) {
+			return defaultValue;
 		}
 		return paramValue;
 	}
 
+	public int getIntParam(String paramName, int defaultValue) {
+		String paramValue = req.getParameter(paramName);
+
+		if (paramValue == null) {
+			return defaultValue;
+		}
+		
+		try{
+			return Integer.parseInt(paramValue);
+		}
+		catch(NumberFormatException e) {
+			return defaultValue;
+		}
+	}
+
 	public void printf(String format, Object... args) {
 		print(Ut.f(format, args));
-		
+
 	}
 
 	public void historyBack(String msg) {
@@ -111,17 +126,17 @@ public class Rq {
 		printf("alert('%s');\n", msg);
 		printf("history.back();");
 		println("</script>");
-		
+
 	}
 
 	public void println(Object obj) {
 		println(obj.toString());
-		
+
 	}
 
 	public void setAttr(String attrName, Object attrValue) {
 		req.setAttribute(attrName, attrValue);
-		
+
 	}
 
 	public void replace(String msg, String redirectUri) {
@@ -129,7 +144,7 @@ public class Rq {
 		printf("alert('%s');\n", msg);
 		printf("location.replace('%s');\n", redirectUri);
 		println("</script>");
-		
+
 	}
 
 }

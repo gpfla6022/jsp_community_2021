@@ -20,6 +20,9 @@ public class UsrArticleController extends Controller{
 		case "list":
 			actionShowList(rq);
 			break;
+		case "detail":
+			actionShowDetail(rq);
+			break;
 		case "write":
 			actionShowWrite(rq);
 			break;
@@ -33,6 +36,24 @@ public class UsrArticleController extends Controller{
 		
 	}
 
+
+	private void actionShowDetail(Rq rq) {
+		
+		int id = rq.getIntParam("id", 0);
+		
+		if(id == 0) {
+			rq.historyBack("id를 입력해주세요.");
+			return;
+		}
+		
+		Article article = articleService.getForPrintArticleById(id);
+		
+		
+		rq.setAttr("article", article);
+		
+		rq.jsp("usr/article/detail");
+		
+	}
 
 	private void actionShowList(Rq rq) {
 		List<Article> articles = articleService.getForPrintArticles();
