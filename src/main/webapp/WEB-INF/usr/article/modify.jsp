@@ -2,9 +2,9 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-<c:set var = "pageTitle" value = "게시물 작성"/>
+<c:set var = "pageTitle" value = "게시물 수정"/>
 <%@ include file = "../part/header.jspf"%>
-	<section class="section section-article-write px-4">
+	<section class="section section-article-modify px-4">
 		<div class="container mx-auto">
 
 			<div class="navbar mb-2 shadow-lg bg-neutral text-neutral-content rounded-box">
@@ -19,16 +19,16 @@
 					</button>
 				</div>
 				<div class="flex-1 px-2 mx-2">
-					<span class="text-lg font-bold"> 게시물 작성 페이지</span>
+					<span class="text-lg font-bold"> 게시물 수정 페이지</span>
 				</div>
 			</div>
 			<div class = "px-4 py-4">
 				<script>
 			    // 제출 버튼을 여러번 눌러도 한번만 제출이 되도록 만듬
- 				let ArticleWrite__submitDone == false;
-				function ArticleWrite__submit(form){
+ 				let ArticleModify__submitDone == false;
+				function ArticleModify__submit(form){
 					
-					if( ArticleWrite__submitDone ){
+					if( ArticleModify__submitDone ){
 						return;
 					}
 					
@@ -46,19 +46,20 @@
 						return;
 					}
 					form.submit();
-					ArticleWrite__submitDone = true;
+					ArticleModify__submitDone = true;
 				}
 			</script>
-				<form action="../article/doWrite" method="POST"
-					onsubmit="ArticleWrite__submit(this); return false;">
-					<input type="hidden" name = "redirectUri" value = "../article/detail?id=[NEW_ID]" />
+				<form action="../article/doModify" method="POST"
+					onsubmit="ArticleModify__submit(this); return false;">
+					<input type="hidden" name = "id" value = "${article.id}" />
+					<input type="hidden" name = "redirectUri" value = "../article/detail?id=${article.id}" />
 					<div class="form-control">
 						<label class="label">
 							<span class="label-text">제목</span>
 						</label>
 						<div>
 							<input class="input input-bordered w-full" maxlength="100"
-								name="title" type="text" placeholder="제목을 입력해주세요." />
+								name="title" type="text" placeholder="제목을 입력해주세요." value = "${article.title}" />
 						</div>
 					</div>
 					<div class="form-control">
@@ -66,11 +67,11 @@
 							<span class="label-text">내용</span>
 						</label>
 						<textarea name="body" maxlength="2000"
-							class="textarea textarea-bordered h-60" placeholder="내용을 입력해주세요."></textarea>
+							class="textarea textarea-bordered h-60" placeholder="내용을 입력해주세요.">${article.body}</textarea>
 					</div>
 					<div class="btns">
-						<button type="submit" class="btn btn-ghost">작성</button>
-						<button type="button" class="btn btn-ghost">취소</button>
+						<button type="submit" class="btn btn-ghost">수정</button>
+						<button onclick = "history.back();" type="button" class="btn btn-ghost">취소</button>
 					</div>
 				</form>
 			</div>

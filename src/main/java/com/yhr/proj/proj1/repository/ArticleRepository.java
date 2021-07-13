@@ -48,4 +48,24 @@ public class ArticleRepository {
 		
 	}
 
+	public int modify(int id, String title, String body) {
+		SecSql sql = new SecSql();
+		sql.append("UPDATE article");
+		sql.append("SET updateDate = now()");
+		
+		if(title != null) {
+			sql.append(", title = ?", title);
+		}
+		
+		if(body != null) {
+			sql.append(", body = ?", body);
+		}
+		
+		
+		sql.append("WHERE id = ?", id);
+
+		return MysqlUtil.update(sql);
+		
+	}
+
 }
