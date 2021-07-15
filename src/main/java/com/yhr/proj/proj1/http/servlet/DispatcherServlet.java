@@ -1,6 +1,8 @@
-package com.yhr.proj.proj1.servlet;
+package com.yhr.proj.proj1.http.servlet;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -16,6 +18,7 @@ import com.yhr.proj.proj1.http.Rq;
 import com.yhr.proj.proj1.http.controller.Controller;
 import com.yhr.proj.proj1.http.controller.UsrArticleController;
 import com.yhr.proj.proj1.http.controller.UsrMemberController;
+import com.yhr.proj.proj1.interceptor.Interceptor;
 
 @WebServlet("/usr/*")
 public class DispatcherServlet extends HttpServlet {
@@ -30,6 +33,10 @@ public class DispatcherServlet extends HttpServlet {
 		}
 
 		Controller controller = null;
+		
+		if(runInterceptors(rq) == false) {
+			return;
+		}
 
 		switch (rq.getControllerTypeName()) {
 		case "usr":
@@ -50,6 +57,23 @@ public class DispatcherServlet extends HttpServlet {
 			
 			MysqlUtil.closeConnection();
 		}
+	}
+
+	private boolean runInterceptors(Rq rq) {
+
+		if(Container.beforeActionInterceptor.runBeforeAction(rq) == false) {
+			return false;
+		}
+		             
+		if(Container.needLoginInterceptor.runBeforeAction(rq) == false) {
+			return false;
+		}
+		
+		if(Container.needLogoutInterceptor.runBeforeAction(rq) == false) {
+			return false;
+		}
+		
+		return true;
 	}
 
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

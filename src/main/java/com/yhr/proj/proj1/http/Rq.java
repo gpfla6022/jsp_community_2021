@@ -107,11 +107,10 @@ public class Rq {
 		if (paramValue == null) {
 			return defaultValue;
 		}
-		
-		try{
+
+		try {
 			return Integer.parseInt(paramValue);
-		}
-		catch(NumberFormatException e) {
+		} catch (NumberFormatException e) {
 			return defaultValue;
 		}
 	}
@@ -123,6 +122,10 @@ public class Rq {
 
 	public void historyBack(String msg) {
 		println("<script>");
+		if (msg != null && msg.trim().length() > 0) {
+
+			printf("alert('%s');\n", msg.trim());
+		}
 		printf("alert('%s');\n", msg);
 		printf("history.back();");
 		println("</script>");
@@ -141,33 +144,35 @@ public class Rq {
 
 	public void replace(String msg, String redirectUri) {
 		println("<script>");
-		printf("alert('%s');\n", msg);
+		if (msg != null && msg.trim().length() > 0) {
+
+			printf("alert('%s');\n", msg.trim());
+		}
 		printf("location.replace('%s');\n", redirectUri);
 		println("</script>");
 
 	}
-	
+
 	// Session에 Attribute설정
 	public void setSessionAttr(String attrName, String attrValue) {
 		req.getSession().setAttribute(attrName, attrValue);
 	}
-	
+
 	// Session에 Attribute삭제
 	public void removeSessionAttr(String attrName) {
 		req.getSession().removeAttribute(attrName);
 	}
 
-
 	// 세션에 저장된 Attribute를 불러오기
-    public <T> T getSessionAttr(String attrName, T defaultValue) {
+	public <T> T getSessionAttr(String attrName, T defaultValue) {
 
-        if (req.getSession().getAttribute(attrName) == null) {
-            return defaultValue;
-        }
+		if (req.getSession().getAttribute(attrName) == null) {
+			return defaultValue;
+		}
 
-        // 특정 타입을 지정하기 애매하기 때문에 제네릭 사용
-        return (T) req.getSession().getAttribute(attrName);
+		// 특정 타입을 지정하기 애매하기 때문에 제네릭 사용
+		return (T) req.getSession().getAttribute(attrName);
 
-    }
+	}
 
 }

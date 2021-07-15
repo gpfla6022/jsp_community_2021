@@ -26,6 +26,9 @@ public class UsrMemberController extends Controller {
 		case "doLogin":
 			actionDoLogin(rq);
 			break;
+		case "doLogout":
+			actionDoLogout(rq);
+			break;
 		default:
 			rq.println("존재하지 않는 페이지 입니다.");
 			break;
@@ -33,6 +36,12 @@ public class UsrMemberController extends Controller {
 
 	}
 
+
+	private void actionDoLogout(Rq rq) {
+		
+		rq.removeSessionAttr("loginedMemberJson");
+		rq.replace(null, "../article/list");
+	}
 
 	private void actionDoLogin(Rq rq) {
 		String loginId = rq.getParam("loginId", "");
