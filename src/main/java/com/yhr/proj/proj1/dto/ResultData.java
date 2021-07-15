@@ -21,13 +21,13 @@ public class ResultData {
 	}
 	
 	public boolean isSuccess() {
-		return resultCode.startsWith("S-1");
+		return resultCode.startsWith("S-");
 	}
 	
 	public boolean isFail() {
 		return !isSuccess();
 	}
-	
+	                             //   성공여부        이유          객체
 	public static ResultData from(String resultCode, String msg, Object... bodyArgs) {
 		
 		ResultData rd = new ResultData();

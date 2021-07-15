@@ -146,5 +146,28 @@ public class Rq {
 		println("</script>");
 
 	}
+	
+	// Session에 Attribute설정
+	public void setSessionAttr(String attrName, String attrValue) {
+		req.getSession().setAttribute(attrName, attrValue);
+	}
+	
+	// Session에 Attribute삭제
+	public void removeSessionAttr(String attrName) {
+		req.getSession().removeAttribute(attrName);
+	}
+
+
+	// 세션에 저장된 Attribute를 불러오기
+    public <T> T getSessionAttr(String attrName, T defaultValue) {
+
+        if (req.getSession().getAttribute(attrName) == null) {
+            return defaultValue;
+        }
+
+        // 특정 타입을 지정하기 애매하기 때문에 제네릭 사용
+        return (T) req.getSession().getAttribute(attrName);
+
+    }
 
 }

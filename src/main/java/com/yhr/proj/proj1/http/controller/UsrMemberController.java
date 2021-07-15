@@ -3,9 +3,11 @@ package com.yhr.proj.proj1.http.controller;
 import java.util.List;
 
 import com.yhr.proj.proj1.container.Container;
+import com.yhr.proj.proj1.dto.Member;
 import com.yhr.proj.proj1.dto.ResultData;
 import com.yhr.proj.proj1.http.Rq;
 import com.yhr.proj.proj1.service.MemberService;
+import com.yhr.proj.proj1.util.Ut;
 
 
 public class UsrMemberController extends Controller {
@@ -31,6 +33,7 @@ public class UsrMemberController extends Controller {
 
 	}
 
+
 	private void actionDoLogin(Rq rq) {
 		String loginId = rq.getParam("loginId", "");
 		String loginPw = rq.getParam("loginPw", "");
@@ -43,6 +46,7 @@ public class UsrMemberController extends Controller {
 		if (loginPw.length() == 0) {
 			rq.historyBack("비밀번호를 입력해주세요.");
 			return;
+
 		}
 
 		ResultData loginRd = memberService.login(loginId, loginPw);
@@ -50,6 +54,11 @@ public class UsrMemberController extends Controller {
 		if (loginRd.isFail()) {
 			rq.historyBack(loginRd.getMsg());
 		}
+		
+		Member member = (Member)loginRd.getBody().get("member");
+		
+		rq.setSessionAttr("loginedMemberJson", Ut.toJson(member));
+		rq.replace(loginRd.getMsg(), "../article/list");
 	}
 
 	private void actionShowLogin(Rq rq) {

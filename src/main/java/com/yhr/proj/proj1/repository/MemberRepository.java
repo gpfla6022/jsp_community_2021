@@ -12,6 +12,6 @@ public class MemberRepository {
 		sql.append("FROM member AS M");
 		sql.append("WHERE M.loginId = ?", loginId);
 
-		return MysqlUtil.selectRow(sql, Member.class);
+		return MysqlUtil.selectRow(sql, Member.class); // 객체 -> xml  ->  json -> db  -> xml  ->  json  ->  객체(member.class)
 	}
 }
