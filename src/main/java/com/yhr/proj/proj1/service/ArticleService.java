@@ -26,14 +26,19 @@ public class ArticleService {
 
 	}
 
-	public List<Article> getForPrintArticles() {
-		return articleRepository.getForPrintArticles();
+	public List<Article> getForPrintArticles(Member user) {
+		List<Article> articles = articleRepository.getForPrintArticles();
+		
+		for(Article article : articles) {
+			updateForPrintData(user, article);
+		}
+		return articles;
 	}
 
-	public Article getForPrintArticleById(Member member, int id) {
+	public Article getForPrintArticleById(Member user, int id) {
 		Article article = articleRepository.getForPrintArticleById(id);
 		
-		updateForPrintData(member, article);
+		updateForPrintData(user, article);
 		
 		return article;
 	}

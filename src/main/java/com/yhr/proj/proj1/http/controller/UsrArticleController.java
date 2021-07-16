@@ -97,7 +97,7 @@ public class UsrArticleController extends Controller {
 	}
 
 	private void actionShowList(Rq rq) {
-		List<Article> articles = articleService.getForPrintArticles();
+		List<Article> articles = articleService.getForPrintArticles(rq.getLoginedMember());
 
 		// jsp안에서 "articles"라는 이름으로 articles변수에 접근 할 수 있다.
 		rq.setAttr("articles", articles);
