@@ -55,10 +55,17 @@ public class UsrArticleController extends Controller {
 			return;
 		}
 
-		Article article = articleService.getForPrintArticleById(id);
+		Article article = articleService.getForPrintArticleById(rq.getLoginedMember(), id);
 		
 		if ( article == null ) {
 			rq.historyBack(Ut.f("%d번 게시물이 존재하지 않습니다.", id));
+			return;
+		}
+		
+		ResultData userCanDeleteRd =  articleService.userCanDelete(rq.getLoginedMember(), article);
+		
+		if(userCanDeleteRd.isFail()) {
+			rq.historyBack(userCanDeleteRd.getMsg());
 			return;
 		}
 		
@@ -76,7 +83,7 @@ public class UsrArticleController extends Controller {
 			return;
 		}
 
-		Article article = articleService.getForPrintArticleById(id);
+		Article article = articleService.getForPrintArticleById(rq.getLoginedMember(), id);
 
 		if (article == null) {
 			rq.historyBack(Ut.f("%id번 게시물이 존재하지 않습니다.", id));
@@ -131,6 +138,7 @@ public class UsrArticleController extends Controller {
 	}
 	
 	private void actionDoModify(Rq rq) {
+		
 		int id = rq.getIntParam("id", 0);
 		String title = rq.getParam("title", "");
 		String body = rq.getParam("body", "");
@@ -150,6 +158,26 @@ public class UsrArticleController extends Controller {
 			rq.historyBack("내용을 입력해주세요.");
 			return;
 		}
+		
+		Article article = articleService.getForPrintArticleById(rq.getLoginedMember(), id);
+		
+		if(article == null) {
+			rq.historyBack(Ut.f("%id번 게시물이 존재하지 않습니다.", id));
+			return;
+		}
+		
+		if(article.getMemberId() == rq.getLoginedMemberId()) {
+			rq.historyBack("권한이 없습니다.");
+			return;
+		}
+		
+		// 사용자가 수정할 수 있는지
+		ResultData userCanModifyRd =  articleService.userCanModify(rq.getLoginedMember(), article);
+	
+		if(userCanModifyRd.isFail()) {
+			rq.historyBack(userCanModifyRd.getMsg());
+			return;
+		}
 
 		ResultData modifyRd = articleService.modify(id, title, body);
 
@@ -164,7 +192,14 @@ public class UsrArticleController extends Controller {
 			return;
 		}
 
-		Article article = articleService.getForPrintArticleById(id);
+		Article article = articleService.getForPrintArticleById(rq.getLoginedMember(), id);
+		
+		ResultData userCanModifyRd =  articleService.userCanModify(rq.getLoginedMember(), article);
+		
+		if(userCanModifyRd.isFail()) {
+			rq.historyBack(userCanModifyRd.getMsg());
+			return;
+		}
 
 		if (article == null) {
 			rq.historyBack(Ut.f("%id번 게시물이 존재하지 않습니다.", id));

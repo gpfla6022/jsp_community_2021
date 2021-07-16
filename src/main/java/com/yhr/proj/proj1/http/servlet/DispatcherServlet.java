@@ -10,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.yhr.mysqliutil.MysqlUtil;
 import com.yhr.mysqliutil.SecSql;
@@ -24,19 +25,19 @@ import com.yhr.proj.proj1.interceptor.Interceptor;
 public class DispatcherServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+		
 		Rq rq = new Rq(req, resp);
 
 		if (rq.isInvalid()) {
 			rq.print("올바른 요청이 아닙니다.");
 			return;
 		}
-
-		Controller controller = null;
 		
 		if(runInterceptors(rq) == false) {
 			return;
 		}
+		
+		Controller controller = null;
 
 		switch (rq.getControllerTypeName()) {
 		case "usr":
@@ -56,6 +57,8 @@ public class DispatcherServlet extends HttpServlet {
 			controller.performAction(rq);
 			
 			MysqlUtil.closeConnection();
+		}else {
+			rq.print("올바른 요청이 아닙니다.");
 		}
 	}
 

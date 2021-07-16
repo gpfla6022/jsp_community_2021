@@ -40,14 +40,18 @@
 						<br>
 				</div>
 				<div class="btns mt-3">
-						<a href = "../article/modify?id=${article.id}" class="btn btn-ghost">
-						<span><i class="fas fa-edit"></i></span>
-						<span>수정</span>
-						</a>
-						<a onclick="if(!confirm('정말로 삭제 하시겠습니까?')) return false;" href = "../article/doDelete?id=${article.id}" class="btn btn-ghost">
-						<span><i class="fas fa-trash-alt"></i></span>
-						<span>삭제</span>
-						</a>
+						<c:if test = "${ article.extra__userCanModify }"> <!--  로그인된 회원의 권한을 체크해  true면 권한을 준다. -->
+							<a href = "../article/modify?id=${article.id}" class="btn btn-ghost">
+								<span><i class="fas fa-edit"></i></span>
+								<span>수정</span>
+							</a>
+						</c:if>
+						<c:if test = "${ article.extra__userCanDelete }">
+							<a onclick="if(!confirm('정말로 삭제 하시겠습니까?')) return false;" href = "../article/doDelete?id=${article.id}" class="btn btn-ghost">
+								<span><i class="fas fa-trash-alt"></i></span>
+								<span>삭제</span>
+							</a>
+						</c:if>
 					</div>
 				<hr />
 		</div>

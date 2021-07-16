@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.yhr.proj.proj1.container.Container;
 import com.yhr.proj.proj1.dto.Article;
+import com.yhr.proj.proj1.dto.Member;
 import com.yhr.proj.proj1.dto.ResultData;
 import com.yhr.proj.proj1.repository.ArticleRepository;
 import com.yhr.proj.proj1.util.Ut;
@@ -29,8 +30,25 @@ public class ArticleService {
 		return articleRepository.getForPrintArticles();
 	}
 
-	public Article getForPrintArticleById(int id) {
-		return articleRepository.getForPrintArticleById(id);
+	public Article getForPrintArticleById(Member member, int id) {
+		Article article = articleRepository.getForPrintArticleById(id);
+		
+		updateForPrintData(member, article);
+		
+		return article;
+	}
+
+	private void updateForPrintData(Member user, Article article) {
+		
+		if(user == null) {
+			return;
+		}
+		
+		boolean userCanModify = userCanModify(user, article).isSuccess();
+		boolean userCanDelete = userCanDelete(user, article).isSuccess();
+		
+		article.setExtra__userCanModify(userCanModify);
+		article.setExtra__userCanDelete(userCanDelete);
 	}
 
 	public ResultData delete(int id) {
@@ -44,6 +62,32 @@ public class ArticleService {
 		articleRepository.modify(id, title, body);
 
 		return ResultData.from("S-1", Ut.f("%d번 게시물이 수정되었습니다.", id), "id", id);
+	}
+
+	public ResultData userCanModify(Member member, Article article) {
+		int memberId = member.getId();
+		int writerMemberId = article.getMemberId();
+		// memberId(회원 번호)와 writerMemberId(글의 작성자의 번호)의 번호를 가지고 온다. 
+		// 같으면 수정할 수 있게 해준다.
+		
+		if (memberId != writerMemberId) {
+			return ResultData.from("F-1", "권한이 없습니다."); 
+					
+		}
+		
+		return ResultData.from("S-1", "수정이 가능합니다."); 
+	}
+
+	public ResultData userCanDelete(Member member, Article article) {
+		int memberId = member.getId();
+		int writerMemberId = article.getMemberId();
+		
+		if (memberId != writerMemberId) {
+			return ResultData.from("F-1", "권한이 없습니다."); 
+					
+		}
+		
+		return ResultData.from("S-1", "삭제가 가능합니다."); 
 	}
 
 }
