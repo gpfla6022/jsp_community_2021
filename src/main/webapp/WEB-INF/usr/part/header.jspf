@@ -60,7 +60,7 @@
 							<span>BOARD</span>
 						</a>
 					</li>
-					<c:if test="${isLogined == false}">
+					<c:if test="${rq.notLogined}">
 					<li>
 						<a href="../member/login" class="h-full flex items-center px-4 hover:underline">
 							<span>
@@ -79,7 +79,7 @@
 						</a>
 					</li>
 					</c:if>
-					<c:if test="${isLogined}">
+					<c:if test="${rq.logined}">
 						<li>
 							<a href="../member/doLogout"
 								class="h-full flex items-center px-4 hover:underline hover:text-red-500">
