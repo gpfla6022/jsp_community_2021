@@ -99,6 +99,10 @@ public class UsrArticleController extends Controller {
 	}
 
 	private void actionDoWrite(Rq rq) {
+		
+		// 로그인된 회원의 정보를 가져다줌
+		int memberId = rq.getLoginedMemberId();
+		int boardId = 1;//임시구현 // rq.getIntParam("boardId", 0);
 		String title = rq.getParam("title", "");
 		String body = rq.getParam("body", "");
 		String redirectUri = rq.getParam("redirectUri", "../article/list");
@@ -113,7 +117,7 @@ public class UsrArticleController extends Controller {
 			return;
 		}
 
-		ResultData writeRd = articleService.write(title, body);
+		ResultData writeRd = articleService.write(boardId, memberId, title, body);
 		int id = (int) writeRd.getBody().get("id");
 
 		redirectUri = redirectUri.replace("[NEW_ID]", id + "");
