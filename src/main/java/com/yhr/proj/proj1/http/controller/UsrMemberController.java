@@ -26,6 +26,12 @@ public class UsrMemberController extends Controller {
 		case "doLogin":
 			actionDoLogin(rq);
 			break;
+		case "join":
+			actionShowJoin(rq);
+			break;
+		case "doJoin":
+			actionDoJoin(rq);
+			break;
 		case "doLogout":
 			actionDoLogout(rq);
 			break;
@@ -36,6 +42,60 @@ public class UsrMemberController extends Controller {
 
 	}
 
+
+	private void actionDoJoin(Rq rq) {
+		String loginId = rq.getParam("loginId", "");
+		String loginPw = rq.getParam("loginPw", "");
+		String name = rq.getParam("name", "");
+		String nickname = rq.getParam("nickname", "");
+		String email = rq.getParam("email", "");
+		String cellphoneNo = rq.getParam("cellphoneNo", "");
+
+		if (loginId.length() == 0) {
+			rq.historyBack("아이디를 입력해주세요.");
+			return;
+		}
+
+		if (loginPw.length() == 0) {
+			rq.historyBack("비밀번호를 입력해주세요.");
+			return;
+
+		}
+		if (name.length() == 0) {
+			rq.historyBack("이름을 입력해주세요.");
+			return;
+
+		}
+		if (nickname.length() == 0) {
+			rq.historyBack("별명을 입력해주세요.");
+			return;
+
+		}
+		if (email.length() == 0) {
+			rq.historyBack("이메일을 입력해주세요.");
+			return;
+
+		}
+		if (cellphoneNo.length() == 0) {
+			rq.historyBack("전화번호를 입력해주세요.");
+			return;
+
+		}
+		
+		ResultData joinRd = memberService.join(loginId, loginPw, name, nickname, email, cellphoneNo);
+
+		if (joinRd.isFail()) {
+			rq.historyBack(joinRd.getMsg());
+		}
+		
+		rq.replace(joinRd.getMsg(), "../article/list");
+		
+	}
+
+	private void actionShowJoin(Rq rq) {
+		rq.jsp("usr/member/join");
+		
+	}
 
 	private void actionDoLogout(Rq rq) {
 		

@@ -1,6 +1,7 @@
 package com.yhr.proj.proj1.container;
 
 import com.yhr.proj.proj1.http.controller.UsrArticleController;
+import com.yhr.proj.proj1.http.controller.UsrBoardController;
 import com.yhr.proj.proj1.http.controller.UsrMemberController;
 import com.yhr.proj.proj1.interceptor.BeforeActionInterceptor;
 import com.yhr.proj.proj1.interceptor.NeedLoginInterceptor;
@@ -47,7 +48,6 @@ public class Container {
 
 			usrMemberController = new UsrMemberController();
 			usrArticleController = new UsrArticleController();
-			
 		}
 		
 	}

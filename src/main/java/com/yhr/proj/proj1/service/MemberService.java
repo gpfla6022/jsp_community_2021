@@ -4,6 +4,7 @@ import com.yhr.proj.proj1.container.Container;
 import com.yhr.proj.proj1.dto.Member;
 import com.yhr.proj.proj1.dto.ResultData;
 import com.yhr.proj.proj1.repository.MemberRepository;
+import com.yhr.proj.proj1.util.Ut;
 
 public class MemberService {
 	
@@ -29,4 +30,18 @@ public class MemberService {
 
 		return ResultData.from("S-1", "환영합니다.", "member", member);
 	}
+
+
+	public ResultData join(String loginId, String loginPw, String name, String nickname, String email, String cellphoneNo) {
+		
+		int member = memberRepository.join(loginId, loginPw, name, nickname, email, cellphoneNo);
+		
+		return ResultData.from("S-1", Ut.f("%S님 환영합니다.", nickname), "member", member);
+		
+		
+		
+	}
+
+
+
 }

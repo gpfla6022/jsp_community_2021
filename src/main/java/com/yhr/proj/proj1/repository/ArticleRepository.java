@@ -73,4 +73,12 @@ public class ArticleRepository {
 		
 	}
 
+	public int getArticlesCount() {
+		SecSql sql = new SecSql();
+		sql.append("SELECT COUNT(*) AS cnt");
+		sql.append("FROM article AS A");
+		
+		return MysqlUtil.selectRowIntValue(sql);
+	}
+
 }

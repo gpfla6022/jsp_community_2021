@@ -19,6 +19,7 @@ import com.yhr.proj.proj1.http.Rq;
 import com.yhr.proj.proj1.http.controller.Controller;
 import com.yhr.proj.proj1.http.controller.UsrArticleController;
 import com.yhr.proj.proj1.http.controller.UsrMemberController;
+import com.yhr.proj.proj1.http.controller.UsrBoardController;
 import com.yhr.proj.proj1.interceptor.Interceptor;
 
 @WebServlet("/usr/*")
