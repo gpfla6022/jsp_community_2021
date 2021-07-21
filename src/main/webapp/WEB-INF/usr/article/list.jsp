@@ -86,9 +86,11 @@
 		<hr />
 		</c:forEach>
 		<div class="page-menu">
-			<c:forEach var = "i" begin = "1" end ="${totalPage}" step = "1">
+		<c:set var = "startPage" value ="${page - 4 >= 1 ? page - 4 : 1}" />
+		<c:set var = "endPage" value ="${page + 4 <= totalPage ? page + 4 : totalPage}" />
+			<c:forEach var = "i" begin = "${startPage}" end ="${endPage}" step = "1">
 			<!-- param.page -> parameter에 있는 page에 한번에 접근하게 된다. -->
-				<c:set var="aClassStr" value="${i == param.page ? 'text-red-500 font-bold' : ''}" />
+				<c:set var="aClassStr" value="${i == page ? 'text-red-500 font-bold' : ''}" />
 						<a class="${aClassStr}" href="?page=${i}">${i}</a>
 			</c:forEach>
 		</div>
