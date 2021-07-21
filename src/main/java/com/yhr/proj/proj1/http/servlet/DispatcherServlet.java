@@ -38,20 +38,7 @@ public class DispatcherServlet extends HttpServlet {
 			return;
 		}
 		
-		Controller controller = null;
-
-		switch (rq.getControllerTypeName()) {
-		case "usr":
-			switch (rq.getControllerName()) {
-			case "article":
-				controller = Container.getUsrArticleController();
-				break;
-			case "member":
-				controller = Container.getUsrMemberController();
-				break;
-			}
-			break;
-		}
+		Controller controller = getControllerByRq(rq);
 
 		if (controller != null) {
 
@@ -61,6 +48,21 @@ public class DispatcherServlet extends HttpServlet {
 		}else {
 			rq.print("올바른 요청이 아닙니다.");
 		}
+	}
+
+	private Controller getControllerByRq(Rq rq) {
+		
+		switch (rq.getControllerTypeName()) {
+		case "usr":
+			switch (rq.getControllerName()) {
+			case "article":
+				return Container.getUsrArticleController();
+			case "member":
+				return Container.getUsrMemberController();
+			}
+			break;
+		}
+		return null;
 	}
 
 	private boolean runInterceptors(Rq rq) {
