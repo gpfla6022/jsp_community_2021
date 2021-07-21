@@ -1,2 +1,40 @@
 @charset "UTF-8";
 
+
+.top-bar__menu-box-1 > ul > li {
+  font-size: 1.05rem;
+  position: relative
+}
+
+.top-bar__menu-box-1 ul > li > a {
+  display: block;
+  white-space:nowrap;
+}
+
+.top-bar__menu-box-1 > ul > li > a {
+  padding: 22.5px 30px;
+}
+
+.top-bar__menu-box-1 > ul ul > li > a {
+  padding: 22.5px 0px;
+  text-align: center;
+}
+
+.top-bar__menu-box-1 ul > li > ul {
+  display: none;
+  position: absolute;
+  background-color: #232323;
+  top: 100%;
+  left:0;
+  width: 100%;
+  box-shadow: 0px 10px 10px rgba(0,0,0,0.5);  
+}
+
+.top-bar__menu-box-1 ul > li:hover > a {
+  background-color: white;
+  color: #232323;
+}
+
+.top-bar__menu-box-1 > ul > li:hover > ul {
+  display: block;
+}

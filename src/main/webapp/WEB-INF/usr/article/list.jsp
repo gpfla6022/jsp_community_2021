@@ -70,6 +70,15 @@
 				</a></div>
 		<hr />
 		</c:forEach>
+		<div class="page-menu">
+		
+		<% int totalPage = (int)request.getAttribute("totalPage"); %>
+		
+		<% for(int i = 1; i <= totalPage; i++) {%>
+			<a href="?page=<%=i%>"><%=i%></a>
+		<%} %>
+		
+		</div>
 	</div>
 </section>
 <%@ include file="../part/footer.jspf"%>

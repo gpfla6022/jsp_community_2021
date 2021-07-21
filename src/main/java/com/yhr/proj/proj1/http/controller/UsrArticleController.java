@@ -102,6 +102,8 @@ public class UsrArticleController extends Controller {
 		
 		int page = rq.getIntParam("page", 1);
 		int itemsCountInAPage = 5;
+
+		int totalPage = 20;
 		
 		int totalItemsCount = articleService.getArticlesCount(searchKeywordTypeCode, searchKeyword);
 		List<Article> articles = articleService.getForPrintArticles(rq.getLoginedMember(), searchKeywordTypeCode, searchKeyword, itemsCountInAPage, page);
@@ -109,6 +111,7 @@ public class UsrArticleController extends Controller {
 		// jsp안에서 "articles"라는 이름으로 articles변수에 접근 할 수 있다.
 		rq.setAttr("page", page);
 		rq.setAttr("itemsCountInAPage", itemsCountInAPage);
+		rq.setAttr("totalPage", totalPage);
 		rq.setAttr("totalItemsCount", totalItemsCount);
 		rq.setAttr("articles", articles);
 
