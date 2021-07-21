@@ -86,19 +86,9 @@
 		<hr />
 		</c:forEach>
 		<div class="page-menu">
-			<%
-			Rq rq = (Rq) request.getAttribute("rq");
-			int totalPage = rq.getIntAttr("totalPage", 10);
-			%>
-
-			<%
-			for (int i = 1; i <= totalPage; i++) {
-			%>
-			<a href="?page=<%=i%>"><%=i%></a>
-			<%
-			}
-			%>
-
+			<c:forEach var = "i" begin = "1" end ="${rq.getIntAttr('totalPage', 10)}" step = "1">
+				${i}
+			</c:forEach>
 		</div>
 	</div>
 </section>
