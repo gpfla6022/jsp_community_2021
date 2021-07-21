@@ -87,7 +87,9 @@
 		</c:forEach>
 		<div class="page-menu">
 			<c:forEach var = "i" begin = "1" end ="${totalPage}" step = "1">
-				<a href="?page=${i}">${i}</a>
+			<!-- param.page -> parameter에 있는 page에 한번에 접근하게 된다. -->
+				<c:set var="aClassStr" value="${i == param.page ? 'text-red-500 font-bold' : ''}" />
+						<a class="${aClassStr}" href="?page=${i}">${i}</a>
 			</c:forEach>
 		</div>
 	</div>
