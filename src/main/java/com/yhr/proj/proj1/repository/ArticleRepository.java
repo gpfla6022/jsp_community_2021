@@ -23,7 +23,7 @@ public class ArticleRepository {
 		return id;
 	}
 
-	public List<Article> getForPrintArticles() {
+	public List<Article> getForPrintArticles(int limitFrom, int limitTake) {
 		SecSql sql = new SecSql();
 		sql.append("SELECT A.*");
 		sql.append(", IFNULL(M.nickname, '탈퇴한회원') AS extra__writerName");
@@ -31,6 +31,7 @@ public class ArticleRepository {
 		sql.append("LEFT JOIN member M");
 		sql.append("ON A.memberId = M.id");
 		sql.append("ORDER BY id DESC");
+		sql.append("LIMIT ?, ?", limitFrom, limitTake);
 
 		return MysqlUtil.selectRows(sql, Article.class);
 	}

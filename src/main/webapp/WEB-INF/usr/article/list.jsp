@@ -27,6 +27,12 @@
 			<div class="badge badge-outline">전체 게시물 개수</div> 
 			${totalItemsCount}
 		</div>
+		<div class ="px-4 py-2">
+			<a href="../article/write">
+				<span><i class="fas fa-edit"></i></span>
+				<span>글작성</span>
+			</a>
+		</div>
 			<hr />
      
 		<div>
