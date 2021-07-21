@@ -38,3 +38,9 @@
 .top-bar__menu-box-1 > ul > li:hover > ul {
   display: block;
 }
+
+.page-menu {
+  display: flex;
+  justify-content: center;
+  padding: 30px 0;
+}
